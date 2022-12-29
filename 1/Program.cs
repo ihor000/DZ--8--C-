@@ -1,36 +1,35 @@
-﻿int[,] table = new int[3, 4];
-FillArrayRandom(table);
-PrintArray(table);
-SortToLower(table);
-Console.WriteLine();
-PrintArray(table);
+﻿Console.WriteLine("Введите количество строк:");
+int linesVol = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Введите количество столбцов:");
+int columnsVol = Convert.ToInt32(Console.ReadLine());
+int[,] numbers = new int[linesVol, columnsVol];
+FillArrayRandomNumbers(numbers);
 
-void FillArrayRandom(int[,] array)
+for (int i = 0; i < numbers.GetLength(0); i++)
 {
-    for (int i = 0; i < array.GetLength(0); i++)
+    for (int j = 0; j < numbers.GetLength(1) - 1; j++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int z = 0; z < numbers.GetLength(1) - 1; z++)
         {
-            array[i, j] = new Random().Next(1, 10);
+            if (numbers[i, z] < numbers[i, z + 1])
+            {
+                int temp = 0;
+                temp = numbers[i, z];
+                numbers[i, z] = numbers[i, z + 1];
+                numbers[i, z + 1] = temp;
+            }
         }
     }
 }
+PrintArray(numbers);
 
-void SortToLower(int[,] array)
+void FillArrayRandomNumbers(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            for (int k = 0; k < array.GetLength(1) - 1; k++)
-            {
-                if (array[i, k] < array[i, k + 1])
-                {
-                    int temp = array[i, k + 1];
-                    array[i, k + 1] = array[i, k];
-                    array[i, k] = temp;
-                }
-            }
+            array[i, j] = new Random().Next(0, 10);
         }
     }
 }
@@ -39,10 +38,10 @@ void PrintArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+         for (int j = 0; j < array.GetLength(1); j++)
         {
-            Console.Write($"{array[i, j]} ");
+            Console.Write(array[i, j] + " ");
         }
-        Console.WriteLine();
+       Console.WriteLine("");
     }
 }
